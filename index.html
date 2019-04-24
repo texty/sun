@@ -86,11 +86,10 @@
             <div class="slide"><img src="img/desktop/Explanation11.png" alt="10" class="slide-img responsive"></div>
             <div class="slide"><img src="img/desktop/Explanation12.png" alt="11" class="slide-img responsive"></div>
             <div class="slide"><img src="img/desktop/Explanation13.png" alt="12" class="slide-img responsive"></div>
-            <div class="slide"><img src="img/desktop/Explanation13.png" alt="13" class="slide-img responsive"></div>
-            <div class="slide"><img src="img/desktop/Explanation13.png" alt="14" class="slide-img responsive"></div>
-            <div class="slide"><img src="img/desktop/Explanation13.png" alt="15" class="slide-img responsive"></div>
-            <div class="slide"><img src="img/desktop/Explanation13.png" alt="16" class="slide-img responsive"></div>
-            <div class="slide"><img src="img/desktop/Explanation13.png" alt="17" class="slide-img responsive"></div>
+            <div class="slide"><img src="img/desktop/Explanation14.png" alt="13" class="slide-img responsive"></div>
+            <div class="slide"><img src="img/desktop/Explanation15.png" alt="14" class="slide-img responsive"></div>
+            <div class="slide"><img src="img/desktop/Explanation16.png" alt="15" class="slide-img responsive"></div>
+            <div class="slide"><img src="img/desktop/Explanation17.png" alt="16" class="slide-img responsive"></div>
         </ul>
 
         <div id="prev-next-btns">
@@ -253,7 +252,7 @@
     // desktop
     var slideNow = 1;
     var slideCount = $('#slidewrapper').children().length;
-    var slideInterval = 3000;
+    var slideInterval = 20000;
     var navBtnId = 0;
     var translateWidth = 0;
 
@@ -326,6 +325,9 @@
 
 
     var slideCount_m = $('#slidewrapper-mob').children().length;
+    var slideNow_m = 1;
+    var navBtnId_m = 0;
+    var translateWidth_m = 0;
 
 
     $(document).ready(function() {
@@ -343,52 +345,52 @@
         $('#prev-btn-mob').click(function() { prevSlide_m();
         });
 
-        $('.slide-nav-btn-mob').click(function() {  navBtnId = $(this).index();
-            if (navBtnId + 1 != slideNow) {
-                translateWidth = -$('#viewport-mob').width() * (navBtnId);
+        $('.slide-nav-btn-mob').click(function() {  navBtnId_m = $(this).index();
+            if (navBtnId_m + 1 != slideNow_m) {
+                translateWidth_m = -$('#viewport-mob').width() * (navBtnId_m);
                 $('#slidewrapper-mob').css({
-                    'transform': 'translate(' + translateWidth + 'px, 0)',
-                    '-webkit-transform': 'translate(' + translateWidth + 'px, 0)',
-                    '-ms-transform': 'translate(' + translateWidth + 'px, 0)',
+                    'transform': 'translate(' + translateWidth_m + 'px, 0)',
+                    '-webkit-transform': 'translate(' + translateWidth_m + 'px, 0)',
+                    '-ms-transform': 'translate(' + translateWidth_m + 'px, 0)',
                 });
-                slideNow = navBtnId + 1;
+                slideNow_m = navBtnId_m + 1;
             }
         });
     });
 
 
     function nextSlide_m() {
-        if (slideNow == slideCount_m || slideNow <= 0 || slideNow > slideCount_m) {
+        if (slideNow_m == slideCount_m || slideNow_m <= 0 || slideNow_m > slideCount_m) {
             $('#slidewrapper-mob').css('transform', 'translate(0, 0)');
-            slideNow = 1;
+            slideNow_m = 1;
         } else {
-            translateWidth = -$('#viewport-mob').width() * (slideNow);
+            translateWidth_m = -$('#viewport-mob').width() * (slideNow_m);
             $('#slidewrapper-mob').css({
-                'transform': 'translate(' + translateWidth + 'px, 0)',
-                '-webkit-transform': 'translate(' + translateWidth + 'px, 0)',
-                '-ms-transform': 'translate(' + translateWidth + 'px, 0)',
+                'transform': 'translate(' + translateWidth_m + 'px, 0)',
+                '-webkit-transform': 'translate(' + translateWidth_m + 'px, 0)',
+                '-ms-transform': 'translate(' + translateWidth_m + 'px, 0)',
             });
-            slideNow++;
+            slideNow_m++;
         }
     }
 
     function prevSlide_m() {
-        if (slideNow == 1 || slideNow <= 0 || slideNow > slideCount_m) {
+        if (slideNow_m == 1 || slideNow_m <= 0 || slideNow_m > slideCount_m) {
             translateWidth = -$('#viewport-mob').width() * (slideCount_m - 1);
             $('#slidewrapper-mob').css({
-                'transform': 'translate(' + translateWidth + 'px, 0)',
-                '-webkit-transform': 'translate(' + translateWidth + 'px, 0)',
-                '-ms-transform': 'translate(' + translateWidth + 'px, 0)',
+                'transform': 'translate(' + translateWidth_m + 'px, 0)',
+                '-webkit-transform': 'translate(' + translateWidth_m + 'px, 0)',
+                '-ms-transform': 'translate(' + translateWidth_m + 'px, 0)',
             });
-            slideNow = slideCount_m;
+            slideNow_m = slideCount_m;
         } else {
-            translateWidth = -$('#viewport-mob').width() * (slideNow - 2);
+            translateWidth = -$('#viewport-mob').width() * (slideNow_m - 2);
             $('#slidewrapper-mob').css({
-                'transform': 'translate(' + translateWidth + 'px, 0)',
-                '-webkit-transform': 'translate(' + translateWidth + 'px, 0)',
-                '-ms-transform': 'translate(' + translateWidth + 'px, 0)',
+                'transform': 'translate(' + translateWidth_m + 'px, 0)',
+                '-webkit-transform': 'translate(' + translateWidth_m + 'px, 0)',
+                '-ms-transform': 'translate(' + translateWidth_m + 'px, 0)',
             });
-            slideNow--;
+            slideNow_m--;
         }
     }
 
