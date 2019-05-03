@@ -92,6 +92,8 @@
             <div class="slide"><img src="img/desktop/Explanation15.png" alt="14" class="slide-img responsive"></div>
             <div class="slide"><img src="img/desktop/Explanation16.png" alt="15" class="slide-img responsive"></div>
             <div class="slide"><img src="img/desktop/Explanation17.png" alt="16" class="slide-img responsive"></div>
+            <div class="slide"><img src="img/desktop/Explanation18.png" alt="17" class="slide-img responsive"></div>
+
         </ul>
 
         <div id="prev-next-btns">
@@ -123,6 +125,11 @@
             <div class="slide-mob"><img src="img/mobile/mobile15.png" alt="14" class="slide-img responsive"></div>
             <div class="slide-mob"><img src="img/mobile/mobile16.png" alt="15" class="slide-img responsive"></div>
             <div class="slide-mob"><img src="img/mobile/mobile17.png" alt="16" class="slide-img responsive"></div>
+            <div class="slide-mob"><img src="img/mobile/mobile18.png" alt="17" class="slide-img responsive"></div>
+            <div class="slide-mob"><img src="img/mobile/mobile19.png" alt="18" class="slide-img responsive"></div>
+            <div class="slide-mob"><img src="img/mobile/mobile20.png" alt="19" class="slide-img responsive"></div>
+
+
         </ul>
 
         <div id="prev-next-btns-mob">
@@ -228,8 +235,6 @@
 <script src="lib/share-behavior.js"></script>
 
 
-
-
 <script>
     // tippy "Гортайте слайдер" версія екрани
     if(screen.width > 800) {
@@ -283,7 +288,14 @@
     $(document).keydown(function(e) {
         switch(e.which) {
             case 37:
+                if(slideNow != 0) {
+                    $("#prev-btn").css("display", "block")
+                } else {
+                    $("#prev-btn").css("display", "none")
+                }
+
                 if(slideNow === 7) {
+
                     $("#click")
                             .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
                             .css("display", "block")
@@ -312,6 +324,11 @@
                 break;
 
             case 39:
+                if(slideNow != 0) {
+                    $("#prev-btn").css("display", "block")
+                } else {
+                    $("#prev-btn").css("display", "none")
+                }
                 if(slideNow === 5) {
                     $("#click")
                             .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
@@ -353,6 +370,11 @@
 //        });
 
         $('#next-btn').click(function() {
+            if(slideNow != 0) {
+                $("#prev-btn").css("display", "block")
+            } else {
+                $("#prev-btn").css("display", "none")
+            }
             if(slideNow === 5) {
                 $("#click")
                         .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
@@ -494,7 +516,11 @@
 //        });
 
         $('#next-btn-mob').click(function() {
-            console.log(slideNow_m)
+            if(slideNow != 0) {
+                $("#prev-btn-mob").css("display", "block")
+            } else {
+                $("#prev-btn-mob").css("display", "none")
+            }
             if(slideNow_m === 7) {
                 $("#click-mob")
                         .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
