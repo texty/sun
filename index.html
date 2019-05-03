@@ -280,6 +280,69 @@
     var expl_7Len = (imgW/100) * 41.6;
 
 
+    $(document).keydown(function(e) {
+        switch(e.which) {
+            case 37:
+                if(slideNow === 7) {
+                    $("#click")
+                            .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
+                            .css("display", "block")
+                            .css("left", imageBoundaries.x + leftP_6)
+                            .css("width", expl_6Len)
+                            .css("height", 30)
+                            .css("top", bottomP);
+                }
+                else if (slideNow === 8){
+                    $("#click")
+                            .attr("href", "https://earthobservatory.nasa.gov/features/Milankovitch/milankovitch_2.php")
+                            .css("display", "block")
+                            .css("left", imageBoundaries.x + leftP_6)
+                            .css("width", expl_7Len)
+                            .css("height", 30)
+                            .css("top", bottomP)
+
+                }
+                else {
+                    $("#click").css("display", "none")
+                }
+                prevSlide();
+                break;
+
+            case 38: // up
+                break;
+
+            case 39:
+                if(slideNow === 5) {
+                    $("#click")
+                            .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
+                            .css("display", "block")
+                            .css("left", imageBoundaries.x + leftP_6)
+                            .css("width", expl_6Len)
+                            .css("height", 30)
+                            .css("top", bottomP);
+                }
+                else if (slideNow === 6){
+                    $("#click")
+                            .attr("href", "https://earthobservatory.nasa.gov/features/Milankovitch/milankovitch_2.php")
+                            .css("display", "block")
+                            .css("left", imageBoundaries.x + leftP_6)
+                            .css("width", expl_7Len).css("height", 30)
+                            .css("top", bottomP);
+                }
+                else {
+                    $("#click").css("display", "none")
+                }
+                nextSlide();// right
+                break;
+
+            case 40: // down
+                break;
+
+            default: return; // exit this handler for other keys
+        }
+        e.preventDefault(); // prevent the default action (scroll / move caret)
+    });
+
 
     $(document).ready(function() {
 //        var switchInterval = setInterval(nextSlide, slideInterval);
@@ -290,7 +353,6 @@
 //        });
 
         $('#next-btn').click(function() {
-            console.log(slideNow)
             if(slideNow === 5) {
                 $("#click")
                         .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
@@ -315,8 +377,10 @@
             nextSlide();
         });
 
+
+
+
         $('#prev-btn').click(function() {
-            console.log(slideNow)
             if(slideNow === 7) {
                 $("#click")
                         .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
