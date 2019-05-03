@@ -238,34 +238,19 @@
 <script>
     // tippy "Гортайте слайдер" версія екрани
     var instance_d;
+    var instance_m;
     if(screen.width > 800) {
         const popper_d = document.querySelector('#next-btn');
         instance_d = tippy(popper_d);
-//        $(window).load(function () {
             instance_d.show();
-//        });
-
-        setTimeout(function() {
-                    instance_d.destroy()
-                }, 6000
-        )
     }
 
     // tippy "Гортайте слайдер" версія мобільні
     if(screen.width < 800) {
         const popper_m = document.querySelector('#next-btn-mob');
-        const instance_m = tippy(popper_m);
-        $(window).load(function () {
-            instance_m.show()
-
-        });
-
-//        setTimeout(function() {
-//            instance_m.destroy()
-//        }, 3000
-//        )
+        instance_m = tippy(popper_m);
+        instance_m.show();
     }
-
 
     // desktop слайдер
     var slideNow = 1;
@@ -274,38 +259,46 @@
     var navBtnId = 0;
     var translateWidth = 0;
 
-    //вираховуємо місце лінку на зображенні
-    var imgW = $('#slidewrapper .slide img').width();
-    var imgH = $('#slidewrapper .slide img').height();
+    //вираховуємо місце лінку на зображенні для десктопів
+    var imgW = $('#slidewrapper .slide img').width(); //ширина одного слайду
+    var imgH = $('#slidewrapper .slide img').height(); //висота одного слайду
     var imageBoundaries =   $('#slidewrapper .slide img')[0].getBoundingClientRect();
     var leftP_6 = (imgW /100) * 7.7;   //вирахований % початку лінка
-    var rightP_6 = (imgW /100) * 27.4; //вирахований % для 4 слайду
-    var rightP_7 = (imgW /100) * 49.3; //вирахований % для 5 слайду
+    var rightP_6 = (imgW /100) * 27.4; //вирахований % кінця для 4 слайду
+    var rightP_7 = (imgW /100) * 49.3; //вирахований % кінця для 5 слайду
     var bottomP = (imgH /100) * 94.5;
     var expl_6Len = (imgW/100) * 19.7; //ширина, кінець - початок у % до ширини зображення
     var expl_7Len = (imgW/100) * 41.6;
 
 
+    //  гортання стрілками
     $(document).keydown(function(e) {
         switch(e.which) {
             case 37:
-                if(slideNow != 0) {
+                prevSlide();
+                if(slideNow != 1) {
                     $("#prev-btn").css("display", "block")
                 } else {
                     $("#prev-btn").css("display", "none")
                 }
 
-                if(slideNow === 7) {
+                if(slideNow != 18) {
+                    $("#next-btn").css("display", "block")
+                } else {
+                    $("#next-btn").css("display", "none")
+                }
 
+
+                if(slideNow === 6) {
                     $("#click")
                             .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
                             .css("display", "block")
-                            .css("left", imageBoundaries.x + leftP_6)
+                            .css("left", imageBoundaries.x + leftP_6) //додаємо початок лінку на картинці до left-позиції самої картинки на екрані
                             .css("width", expl_6Len)
                             .css("height", 30)
                             .css("top", bottomP);
                 }
-                else if (slideNow === 8){
+                else if (slideNow === 7){
                     $("#click")
                             .attr("href", "https://earthobservatory.nasa.gov/features/Milankovitch/milankovitch_2.php")
                             .css("display", "block")
@@ -318,20 +311,30 @@
                 else {
                     $("#click").css("display", "none")
                 }
-                prevSlide();
-                break;
 
-            case 38: // up
                 break;
 
             case 39:
-                instance_d.destroy()
-                if(slideNow != 0) {
+                instance_d.destroy();
+
+                nextSlide();
+
+                // стрілки на 1 та останньому слайдах
+                if(slideNow != 1) {
                     $("#prev-btn").css("display", "block")
                 } else {
                     $("#prev-btn").css("display", "none")
                 }
-                if(slideNow === 5) {
+
+                if(slideNow != 18) {
+                    $("#next-btn").css("display", "block")
+                } else {
+                    $("#next-btn").css("display", "none")
+                }
+
+
+                //лінки
+                if(slideNow === 6) {
                     $("#click")
                             .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
                             .css("display", "block")
@@ -340,7 +343,7 @@
                             .css("height", 30)
                             .css("top", bottomP);
                 }
-                else if (slideNow === 6){
+                else if (slideNow === 7){
                     $("#click")
                             .attr("href", "https://earthobservatory.nasa.gov/features/Milankovitch/milankovitch_2.php")
                             .css("display", "block")
@@ -351,10 +354,6 @@
                 else {
                     $("#click").css("display", "none")
                 }
-                nextSlide();// right
-                break;
-
-            case 40: // down
                 break;
 
             default: return; // exit this handler for other keys
@@ -363,22 +362,29 @@
     });
 
 
+   //  гортання по кліку
     $(document).ready(function() {
-//        var switchInterval = setInterval(nextSlide, slideInterval);
-//        $('#viewport').hover(function() {
-////            clearInterval(switchInterval);
-//        }, function() {
-////            switchInterval = setInterval(nextSlide, slideInterval);
-//        });
 
         $('#next-btn').click(function() {
-            instance_d.destroy()
-            if(slideNow != 0) {
+            //прибираємо тултіп "Гортейте, після першого кліку на стрілку
+            instance_d.destroy();
+            nextSlide();
+            console.log(slideNow);
+            //повертаємо стрілку "назад", якщо не перший слайд
+            if(slideNow != 1) {
                 $("#prev-btn").css("display", "block")
             } else {
                 $("#prev-btn").css("display", "none")
             }
-            if(slideNow === 5) {
+
+            if(slideNow != 18) {
+                $("#next-btn").css("display", "block")
+            } else {
+                $("#next-btn").css("display", "none")
+            }
+
+            //задаємо позицію клікабельних лінків
+            if(slideNow === 6) {
                 $("#click")
                         .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
                         .css("display", "block")
@@ -387,7 +393,7 @@
                         .css("height", 30)
                         .css("top", bottomP);
             }
-            else if (slideNow === 6){
+            else if (slideNow === 7){
                 $("#click")
                         .attr("href", "https://earthobservatory.nasa.gov/features/Milankovitch/milankovitch_2.php")
                         .css("display", "block")
@@ -398,15 +404,27 @@
             else {
                 $("#click").css("display", "none")
             }
-
-            nextSlide();
         });
 
 
 
 
         $('#prev-btn').click(function() {
-            if(slideNow === 7) {
+            prevSlide();
+            console.log(slideNow);
+
+            if(slideNow != 1) {
+                $("#prev-btn").css("display", "block")
+            } else {
+                $("#prev-btn").css("display", "none")
+            }
+
+            if(slideNow != 18) {
+                $("#next-btn").css("display", "block")
+            } else {
+                $("#next-btn").css("display", "none")
+            }
+            if(slideNow === 6) {
                 $("#click")
                         .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
                         .css("display", "block")
@@ -415,7 +433,7 @@
                         .css("height", 30)
                         .css("top", bottomP);
             }
-            else if (slideNow === 8){
+            else if (slideNow === 7){
                 $("#click")
                         .attr("href", "https://earthobservatory.nasa.gov/features/Milankovitch/milankovitch_2.php")
                         .css("display", "block")
@@ -423,28 +441,132 @@
                         .css("width", expl_7Len)
                         .css("height", 30)
                         .css("top", bottomP)
-
             }
             else {
                 $("#click").css("display", "none")
             }
-            prevSlide();
-
         });
 
-        $('.slide-nav-btn').click(function() {  navBtnId = $(this).index();
-            if (navBtnId + 1 != slideNow) {
-                translateWidth = -$('#viewport').width() * (navBtnId);
-                $('#slidewrapper').css({
-                    'transform': 'translate(' + translateWidth + 'px, 0)',
-                    '-webkit-transform': 'translate(' + translateWidth + 'px, 0)',
-                    '-ms-transform': 'translate(' + translateWidth + 'px, 0)',
-                });
-                slideNow = navBtnId + 1;
-            }
-        });
     });
 
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // mobile слайдер
+    var slideCount_m = $('#slidewrapper-mob').children().length;
+    var slideNow_m = 1;
+    var navBtnId_m = 0;
+    var translateWidth_m = 0;
+
+
+    //вираховуємо місце лінку на зображенні
+    var imgW_m = $('#slidewrapper-mob .slide-mob img').width();
+    var imgH_m = $('#slidewrapper-mob .slide-mob img').height();
+    var imageBoundaries_m =   $('#slidewrapper-mob .slide-mob')[0].getBoundingClientRect();
+
+    var leftP_6_m = (imgW_m /100) * 14;   //вирахований % початку лінка
+    var rightP_6_m = (imgW_m /100) * 51; //вирахований % для 4 слайду
+    var rightP_7_m = (imgW_m /100) * 70.5; //вирахований % для 5 слайду
+
+    var bottomP_6_m = (imgH_m /100) * 91.5;
+    var bottomP_7_m = (imgH_m /100) * 93.5;
+
+    var expl_6Len_m = (imgW_m/100) * 40; //ширина, кінець - початок у % до ширини зображення
+    var expl_7Len_m = (imgW_m/100) * 58;
+
+
+
+    $(document).ready(function() {
+//        var switchInterval = setInterval(nextSlide_m, slideInterval);
+
+//        $('#viewport-mob').hover(function() {
+////            clearInterval(switchInterval);
+//        }, function() {
+////            switchInterval = setInterval(nextSlide_m, slideInterval);
+//        });
+
+        $('#next-btn-mob').click(function() {
+            instance_m.destroy();
+
+            nextSlide_m();
+
+            if(slideNow_m != 1) {
+                $("#prev-btn-mob").css("display", "block")
+            } else {
+                $("#prev-btn-mob").css("display", "none")
+            }
+
+            if(slideNow_m != 20) {
+                $("#next-btn-mob").css("display", "block")
+            } else {
+                $("#next-btn-mob").css("display", "none")
+            }
+
+            //задаємо позицію клікабельних лінків
+            if(slideNow_m === 8) {
+                $("#click-mob")
+                        .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
+                        .css("display", "block")
+                        .css("left", imageBoundaries_m.x + leftP_6_m)
+                        .css("width", expl_6Len_m)
+                        .css("height", 20)
+                        .css("top", bottomP_6_m);
+            }
+            else if (slideNow_m === 9){
+                $("#click-mob")
+                        .attr("href", "https://earthobservatory.nasa.gov/features/Milankovitch/milankovitch_2.php")
+                        .css("display", "block")
+                        .css("left", imageBoundaries_m.x + leftP_6_m)
+                        .css("width", expl_7Len_m).css("height", 30)
+                        .css("top", bottomP_7_m);
+            }
+            else {
+                $("#click-mob").css("display", "none")
+            }
+
+        });
+
+        $('#prev-btn-mob').click(function() {
+            prevSlide_m();
+
+            if(slideNow_m != 1) {
+                $("#prev-btn-mob").css("display", "block")
+            } else {
+                $("#prev-btn-mob").css("display", "none")
+            }
+
+            if(slideNow_m != 20) {
+                $("#next-btn-mob").css("display", "block")
+            } else {
+                $("#next-btn-mob").css("display", "none")
+            }
+
+            if(slideNow_m === 8) {
+                $("#click-mob")
+                        .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
+                        .css("display", "block")
+                        .css("left", imageBoundaries_m.x + leftP_6_m)
+                        .css("width", expl_6Len_m)
+                        .css("height", 20)
+                        .css("top", bottomP_6_m);
+            }
+            else if (slideNow_m === 9){
+                $("#click-mob")
+                        .attr("href", "https://earthobservatory.nasa.gov/features/Milankovitch/milankovitch_2.php")
+                        .css("display", "block")
+                        .css("left", imageBoundaries_m.x + leftP_6_m)
+                        .css("width", expl_7Len_m).css("height", 30)
+                        .css("top", bottomP_7_m);
+            }
+            else {
+                $("#click-mob").css("display", "none")
+            }
+
+        });
+    });
 
     function nextSlide() {
         if (slideNow == slideCount || slideNow <= 0 || slideNow > slideCount) {
@@ -480,116 +602,6 @@
             slideNow--;
         }
     }
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // mobile слайдер
-    var slideCount_m = $('#slidewrapper-mob').children().length;
-    var slideNow_m = 1;
-    var navBtnId_m = 0;
-    var translateWidth_m = 0;
-
-
-    //вираховуємо місце лінку на зображенні
-    var imgW_m = $('#slidewrapper-mob .slide-mob img').width();
-    console.log(imgW_m)
-    var imgH_m = $('#slidewrapper-mob .slide-mob img').height();
-    var imageBoundaries_m =   $('#slidewrapper-mob .slide-mob')[0].getBoundingClientRect();
-
-    var leftP_6_m = (imgW_m /100) * 14;   //вирахований % початку лінка
-    var rightP_6_m = (imgW_m /100) * 51; //вирахований % для 4 слайду
-    var rightP_7_m = (imgW_m /100) * 70.5; //вирахований % для 5 слайду
-
-    var bottomP_6_m = (imgH_m /100) * 91.5;
-    var bottomP_7_m = (imgH_m /100) * 93.5;
-
-    var expl_6Len_m = (imgW_m/100) * 37; //ширина, кінець - початок у % до ширини зображення
-    var expl_7Len_m = (imgW_m/100) * 55.5;
-
-
-
-    $(document).ready(function() {
-//        var switchInterval = setInterval(nextSlide_m, slideInterval);
-
-//        $('#viewport-mob').hover(function() {
-////            clearInterval(switchInterval);
-//        }, function() {
-////            switchInterval = setInterval(nextSlide_m, slideInterval);
-//        });
-
-        $('#next-btn-mob').click(function() {
-            if(slideNow != 0) {
-                $("#prev-btn-mob").css("display", "block")
-            } else {
-                $("#prev-btn-mob").css("display", "none")
-            }
-            if(slideNow_m === 7) {
-                $("#click-mob")
-                        .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
-                        .css("display", "block")
-                        .css("left", imageBoundaries_m.x + leftP_6_m)
-                        .css("width", expl_6Len_m)
-                        .css("height", 20)
-                        .css("top", bottomP_6_m);
-            }
-            else if (slideNow_m === 8){
-                $("#click-mob")
-                        .attr("href", "https://earthobservatory.nasa.gov/features/Milankovitch/milankovitch_2.php")
-                        .css("display", "block")
-                        .css("left", imageBoundaries_m.x + leftP_6_m)
-                        .css("width", expl_7Len_m).css("height", 30)
-                        .css("top", bottomP_7_m);
-            }
-            else {
-                $("#click-mob").css("display", "none")
-            }
-
-
-
-            nextSlide_m();
-        });
-
-        $('#prev-btn-mob').click(function() {
-            console.log(slideNow_m);
-            if(slideNow_m === 9) {
-                $("#click-mob")
-                        .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
-                        .css("display", "block")
-                        .css("left", imageBoundaries_m.x + leftP_6_m)
-                        .css("width", expl_6Len_m)
-                        .css("height", 20)
-                        .css("top", bottomP_6_m);
-            }
-            else if (slideNow_m === 10){
-                $("#click-mob")
-                        .attr("href", "https://earthobservatory.nasa.gov/features/Milankovitch/milankovitch_2.php")
-                        .css("display", "block")
-                        .css("left", imageBoundaries_m.x + leftP_6_m)
-                        .css("width", expl_7Len_m).css("height", 30)
-                        .css("top", bottomP_7_m);
-            }
-            else {
-                $("#click-mob").css("display", "none")
-            }
-
-
-
-            prevSlide_m();
-        });
-
-        $('.slide-nav-btn-mob').click(function() {  navBtnId_m = $(this).index();
-            if (navBtnId_m + 1 != slideNow_m) {
-                translateWidth_m = -$('#viewport-mob').width() * (navBtnId_m);
-                $('#slidewrapper-mob').css({
-                    'transform': 'translate(' + translateWidth_m + 'px, 0)',
-                    '-webkit-transform': 'translate(' + translateWidth_m + 'px, 0)',
-                    '-ms-transform': 'translate(' + translateWidth_m + 'px, 0)'
-                });
-                slideNow_m = navBtnId_m + 1;
-            }
-        });
-    });
 
 
     function nextSlide_m() {
@@ -628,28 +640,45 @@
     }
 
 
-
-
-
-
-
+    //допоміжні для обчислення позиції лінка на картинці
     $(".slide img").click(function(e) {
         var x = e.offsetX;
         var y = e.offsetY;
-        console.log(x)
-        console.log(y)
-
     });
 
 
     $(".slide-mob img").click(function(e) {
         var x = e.offsetX;
         var y = e.offsetY;
-        console.log(x)
-        console.log(y)
-
     });
 
+
+
+    //        $('.slide-nav-btn').click(function() {  navBtnId = $(this).index();
+    //            if (navBtnId + 1 != slideNow) {
+    //                translateWidth = -$('#viewport').width() * (navBtnId);
+    //                $('#slidewrapper').css({
+    //                    'transform': 'translate(' + translateWidth + 'px, 0)',
+    //                    '-webkit-transform': 'translate(' + translateWidth + 'px, 0)',
+    //                    '-ms-transform': 'translate(' + translateWidth + 'px, 0)',
+    //                });
+    //                slideNow = navBtnId + 1;
+    //            }
+    //        });
+
+
+    //
+    //        $('.slide-nav-btn-mob').click(function() {  navBtnId_m = $(this).index();
+    //            if (navBtnId_m + 1 != slideNow_m) {
+    //                translateWidth_m = -$('#viewport-mob').width() * (navBtnId_m);
+    //                $('#slidewrapper-mob').css({
+    //                    'transform': 'translate(' + translateWidth_m + 'px, 0)',
+    //                    '-webkit-transform': 'translate(' + translateWidth_m + 'px, 0)',
+    //                    '-ms-transform': 'translate(' + translateWidth_m + 'px, 0)'
+    //                });
+    //                slideNow_m = navBtnId_m + 1;
+    //            }
+    //        });
 
 </script>
 
