@@ -185,3 +185,9 @@ main {
   cursor: pointer;
 }
 
+
+#click, #click-mob {
+  position:absolute;
+  cursor:pointer;
+  z-index: 20000000;
+}

@@ -8,25 +8,25 @@
 <!-- OpenGraph Meta Tags -->
 <meta property="og:site_name"
       content="23.5"/>
-<meta property="og:type" content="http://texty.org.ua/d/2019/sun/"/>
+<meta property="og:type" content="http://texty.org.ua/d/2019/seasons/"/>
 <meta property="og:title"
       content="23.5"/>
 <meta property="og:image" content="http://texty.org.ua/d/2019/sun/img/anons_cover.jpg"/>
 <meta property="og:description"
       content=" Чому змінюються пори року (ІНФОГРАФІКА)"/>
-<meta property="og:url" content="http://texty.org.ua/d/2019/sun/"/>
+<meta property="og:url" content="http://texty.org.ua/d/2019/seasons/"/>
 
 
 <!-- Twitter Card Meta Tags -->
 <meta name="twitter:site" content="@textyorgua"/>
 <meta property="twitter:account_id" content="49572937"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:url" content="http://texty.org.ua/d/2019/sun/"/>
+<meta name="twitter:url" content="http://texty.org.ua/d/2019/seasons/"/>
 <meta name="twitter:title"
       content="23.5"/>
 <meta name="twitter:description"
       content="Чому змінюються пори року (ІНФОГРАФІКА)"/>
-<meta name="twitter:image:src" content="http://texty.org.ua/d/2019/sun/img/anons_cover.jpg"/>
+<meta name="twitter:image:src" content="http://texty.org.ua/d/2019/seasons/img/anons_cover.jpg"/>
 <meta name="twitter:image:width" content="1200"/>
 <meta name="twitter:image:height" content="630"/>
 
@@ -73,6 +73,7 @@
 
 <div id="block-for-slider" class=" desk">
     <div id="viewport">
+        <a id="click" href="https://spaceplace.nasa.gov/seasons/en/" target="_blank"></a>
         <ul id="slidewrapper">
             <div class="slide"><img src="img/desktop/Explanation.png" alt="0" class="slide-img responsive"></div>
             <div class="slide"><img src="img/desktop/Explanation2.png" alt="1" class="slide-img responsive"></div>
@@ -103,6 +104,7 @@
 
 <div id="block-for-slider-mob" class=" mob">
     <div id="viewport-mob">
+        <a id="click-mob" href="https://spaceplace.nasa.gov/seasons/en/" target="_blank"></a>
         <ul id="slidewrapper-mob">
             <div class="slide-mob"><img src="img/mobile/mobile.png" alt="0" class="slide-img responsive"></div>
             <div class="slide-mob"><img src="img/mobile/mobile2.png" alt="1" class="slide-img responsive"></div>
@@ -161,8 +163,8 @@
 <!-- Created by TEXTY-->
 <section id="created_texty">
     <div>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=http://texty.org.ua/d/2019/sun/" class="share-btn"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://twitter.com/intent/tweet?text=http://texty.org.ua/d/2019/sun/" class="share-btn"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=http://texty.org.ua/d/2019/seasons/" class="share-btn"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://twitter.com/intent/tweet?text=http://texty.org.ua/d/2019/seasons/" class="share-btn"><i class="fab fa-twitter"></i></a>
         <!--<h3>Створено Текстами</h3>-->
         <h3>Created by TEXTY</h3>
     </div>
@@ -229,6 +231,7 @@
 
 
 <script>
+    // tippy "Гортайте слайдер" версія екрани
     if(screen.width > 800) {
         const popper_d = document.querySelector('#next-btn');
         const instance_d = tippy(popper_d);
@@ -242,7 +245,7 @@
         )
     }
 
-
+    // tippy "Гортайте слайдер" версія мобільні
     if(screen.width < 800) {
         const popper_m = document.querySelector('#next-btn-mob');
         const instance_m = tippy(popper_m);
@@ -257,26 +260,87 @@
         )
     }
 
-    // desktop
+
+    // desktop слайдер
     var slideNow = 1;
     var slideCount = $('#slidewrapper').children().length;
-    var slideInterval = 20000;
+    var slideInterval = 5000;
     var navBtnId = 0;
     var translateWidth = 0;
 
+    //вираховуємо місце лінку на зображенні
+    var imgW = $('#slidewrapper .slide img').width();
+    var imgH = $('#slidewrapper .slide img').height();
+    var imageBoundaries =   $('#slidewrapper .slide img')[0].getBoundingClientRect();
+    var leftP_6 = (imgW /100) * 7.7;   //вирахований % початку лінка
+    var rightP_6 = (imgW /100) * 27.4; //вирахований % для 4 слайду
+    var rightP_7 = (imgW /100) * 49.3; //вирахований % для 5 слайду
+    var bottomP = (imgH /100) * 94.5;
+    var expl_6Len = (imgW/100) * 19.7; //ширина, кінець - початок у % до ширини зображення
+    var expl_7Len = (imgW/100) * 41.6;
+
+
+
     $(document).ready(function() {
-        var switchInterval = setInterval(nextSlide, slideInterval);
+//        var switchInterval = setInterval(nextSlide, slideInterval);
+//        $('#viewport').hover(function() {
+////            clearInterval(switchInterval);
+//        }, function() {
+////            switchInterval = setInterval(nextSlide, slideInterval);
+//        });
 
-        $('#viewport').hover(function() {
-            clearInterval(switchInterval);
-        }, function() {
-            switchInterval = setInterval(nextSlide, slideInterval);
+        $('#next-btn').click(function() {
+            console.log(slideNow)
+            if(slideNow === 5) {
+                $("#click")
+                        .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
+                        .css("display", "block")
+                        .css("left", imageBoundaries.x + leftP_6)
+                        .css("width", expl_6Len)
+                        .css("height", 30)
+                        .css("top", bottomP);
+            }
+            else if (slideNow === 6){
+                $("#click")
+                        .attr("href", "https://earthobservatory.nasa.gov/features/Milankovitch/milankovitch_2.php")
+                        .css("display", "block")
+                        .css("left", imageBoundaries.x + leftP_6)
+                        .css("width", expl_7Len).css("height", 30)
+                        .css("top", bottomP);
+            }
+            else {
+                $("#click").css("display", "none")
+            }
+
+            nextSlide();
         });
 
-        $('#next-btn').click(function() { nextSlide();
-        });
+        $('#prev-btn').click(function() {
+            console.log(slideNow)
+            if(slideNow === 7) {
+                $("#click")
+                        .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
+                        .css("display", "block")
+                        .css("left", imageBoundaries.x + leftP_6)
+                        .css("width", expl_6Len)
+                        .css("height", 30)
+                        .css("top", bottomP);
+            }
+            else if (slideNow === 8){
+                $("#click")
+                        .attr("href", "https://earthobservatory.nasa.gov/features/Milankovitch/milankovitch_2.php")
+                        .css("display", "block")
+                        .css("left", imageBoundaries.x + leftP_6)
+                        .css("width", expl_7Len)
+                        .css("height", 30)
+                        .css("top", bottomP).attr();
 
-        $('#prev-btn').click(function() { prevSlide();
+            }
+            else {
+                $("#click").css("display", "none")
+            }
+            prevSlide();
+
         });
 
         $('.slide-nav-btn').click(function() {  navBtnId = $(this).index();
@@ -329,28 +393,96 @@
     }
 
 
-    // mobile
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+    // mobile слайдер
     var slideCount_m = $('#slidewrapper-mob').children().length;
     var slideNow_m = 1;
     var navBtnId_m = 0;
     var translateWidth_m = 0;
 
 
+    //вираховуємо місце лінку на зображенні
+    var imgW_m = $('#slidewrapper-mob .slide-mob img').width();
+    console.log(imgW_m)
+    var imgH_m = $('#slidewrapper-mob .slide-mob img').height();
+    var imageBoundaries_m =   $('#slidewrapper-mob .slide-mob')[0].getBoundingClientRect();
+
+    var leftP_6_m = (imgW_m /100) * 14;   //вирахований % початку лінка
+    var rightP_6_m = (imgW_m /100) * 51; //вирахований % для 4 слайду
+    var rightP_7_m = (imgW_m /100) * 70.5; //вирахований % для 5 слайду
+
+    var bottomP_6_m = (imgH_m /100) * 91.5;
+    var bottomP_7_m = (imgH_m /100) * 93.5;
+
+    var expl_6Len_m = (imgW_m/100) * 37; //ширина, кінець - початок у % до ширини зображення
+    var expl_7Len_m = (imgW_m/100) * 55.5;
+
+
+
     $(document).ready(function() {
-        var switchInterval = setInterval(nextSlide_m, slideInterval);
+//        var switchInterval = setInterval(nextSlide_m, slideInterval);
 
-        $('#viewport-mob').hover(function() {
-            clearInterval(switchInterval);
-        }, function() {
-            switchInterval = setInterval(nextSlide_m, slideInterval);
+//        $('#viewport-mob').hover(function() {
+////            clearInterval(switchInterval);
+//        }, function() {
+////            switchInterval = setInterval(nextSlide_m, slideInterval);
+//        });
+
+        $('#next-btn-mob').click(function() {
+            console.log(slideNow_m)
+            if(slideNow_m === 7) {
+                $("#click-mob")
+                        .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
+                        .css("display", "block")
+                        .css("left", imageBoundaries_m.x + leftP_6_m)
+                        .css("width", expl_6Len_m)
+                        .css("height", 20)
+                        .css("top", bottomP_6_m);
+            }
+            else if (slideNow_m === 8){
+                $("#click-mob")
+                        .attr("href", "https://earthobservatory.nasa.gov/features/Milankovitch/milankovitch_2.php")
+                        .css("display", "block")
+                        .css("left", imageBoundaries_m.x + leftP_6_m)
+                        .css("width", expl_7Len_m).css("height", 30)
+                        .css("top", bottomP_7_m);
+            }
+            else {
+                $("#click-mob").css("display", "none")
+            }
+
+
+
+            nextSlide_m();
         });
 
-        $('#next-btn-mob').click(function() { nextSlide_m();
-        });
+        $('#prev-btn-mob').click(function() {
+            console.log(slideNow_m)
+            if(slideNow_m === 9) {
+                $("#click-mob")
+                        .attr("href", "https://spaceplace.nasa.gov/seasons/en/")
+                        .css("display", "block")
+                        .css("left", imageBoundaries_m.x + leftP_6_m)
+                        .css("width", expl_6Len_m)
+                        .css("height", 20)
+                        .css("top", bottomP_6_m);
+            }
+            else if (slideNow_m === 10){
+                $("#click-mob")
+                        .attr("href", "https://earthobservatory.nasa.gov/features/Milankovitch/milankovitch_2.php")
+                        .css("display", "block")
+                        .css("left", imageBoundaries_m.x + leftP_6_m)
+                        .css("width", expl_7Len_m).css("height", 30)
+                        .css("top", bottomP_7_m);
+            }
+            else {
+                $("#click-mob").css("display", "none")
+            }
 
-        $('#prev-btn-mob').click(function() { prevSlide_m();
+
+
+            prevSlide_m();
         });
 
         $('.slide-nav-btn-mob').click(function() {  navBtnId_m = $(this).index();
@@ -384,7 +516,7 @@
 
     function prevSlide_m() {
         if (slideNow_m == 1 || slideNow_m <= 0 || slideNow_m > slideCount_m) {
-            translateWidth = -$('#viewport-mob').width() * (slideCount_m - 1);
+            translateWidth_m = -$('#viewport-mob').width() * (slideCount_m - 1);
             $('#slidewrapper-mob').css({
                 'transform': 'translate(' + translateWidth_m + 'px, 0)',
                 '-webkit-transform': 'translate(' + translateWidth_m + 'px, 0)',
@@ -392,7 +524,7 @@
             });
             slideNow_m = slideCount_m;
         } else {
-            translateWidth = -$('#viewport-mob').width() * (slideNow_m - 2);
+            translateWidth_m = -$('#viewport-mob').width() * (slideNow_m - 2);
             $('#slidewrapper-mob').css({
                 'transform': 'translate(' + translateWidth_m + 'px, 0)',
                 '-webkit-transform': 'translate(' + translateWidth_m + 'px, 0)',
@@ -401,6 +533,29 @@
             slideNow_m--;
         }
     }
+
+
+
+
+
+
+
+    $(".slide img").click(function(e) {
+        var x = e.offsetX;
+        var y = e.offsetY;
+        console.log(x)
+        console.log(y)
+
+    });
+
+
+    $(".slide-mob img").click(function(e) {
+        var x = e.offsetX;
+        var y = e.offsetY;
+        console.log(x)
+        console.log(y)
+
+    });
 
 
 </script>

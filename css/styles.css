@@ -399,4 +399,9 @@ main {
 .slide-nav-btn:hover, .slide-nav-btn-mob:hover {
   cursor: pointer; }
 
+#click, #click-mob {
+  position: absolute;
+  cursor: pointer;
+  z-index: 20000000; }
+
 /*# sourceMappingURL=styles.css.map */
