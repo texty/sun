@@ -237,12 +237,13 @@
 
 <script>
     // tippy "Гортайте слайдер" версія екрани
+    var instance_d;
     if(screen.width > 800) {
         const popper_d = document.querySelector('#next-btn');
-        const instance_d = tippy(popper_d);
-        $(window).load(function () {
-            instance_d.show()
-        });
+        instance_d = tippy(popper_d);
+//        $(window).load(function () {
+            instance_d.show();
+//        });
 
         setTimeout(function() {
                     instance_d.destroy()
@@ -259,10 +260,10 @@
 
         });
 
-        setTimeout(function() {
-            instance_m.destroy()
-        }, 3000
-        )
+//        setTimeout(function() {
+//            instance_m.destroy()
+//        }, 3000
+//        )
     }
 
 
@@ -324,6 +325,7 @@
                 break;
 
             case 39:
+                instance_d.destroy()
                 if(slideNow != 0) {
                     $("#prev-btn").css("display", "block")
                 } else {
@@ -370,6 +372,7 @@
 //        });
 
         $('#next-btn').click(function() {
+            instance_d.destroy()
             if(slideNow != 0) {
                 $("#prev-btn").css("display", "block")
             } else {
