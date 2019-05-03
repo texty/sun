@@ -282,6 +282,9 @@
       display: none;
       font-size: 0 !important; } }
 
+* {
+  outline: none; }
+
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
@@ -317,8 +320,7 @@ main {
 
 #block-for-slider {
   width: 100%;
-  margin: 0 auto;
-  margin-top: 100px; }
+  margin: 0 auto; }
 
 #viewport, #viewport-mob {
   width: 100%;
