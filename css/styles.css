@@ -70,7 +70,8 @@
   top: 0;
   left: 0;
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+  z-index: 1000; }
 
 .logo {
   margin: 10px;
@@ -119,7 +120,7 @@
       #soc i {
         font-size: 20px; } }
     #soc i:hover {
-      color: pink; }
+      color: #ffc423; }
 
 #cover-picture {
   width: 100%;
