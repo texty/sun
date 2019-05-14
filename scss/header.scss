@@ -14,13 +14,13 @@
 .logo {
   margin:10px;
   height:50px;
-  width:200px;
+  width:150px;
   grid-column: 1/2;
   @media #{$large}{
-    width:200px;
+    width:180px;
   }
   @media #{$mobile} {
-    width:120px;
+    display:none;
   }
 
   a {
@@ -37,13 +37,16 @@
   display:flex;
   justify-content: flex-end;
   margin-right:20px;
+  @media(max-width:800px){
+    width:100%;
+  }
 
   div#translate {
     display:flex;
   }
 
   a {
-    margin:auto;
+    margin:5px 0;
     text-decoration: none;
   }
 
