@@ -246,25 +246,25 @@
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
             <!-- Slides -->
-            <div class="swiper-slide"><img src="img/mobile/mobile.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/mobile/mobile2.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/mobile/mobile3.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/mobile/mobile4.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/mobile/mobile5.png" alt=""></div>
-            <div class="swiper-slide"><img  src="img/mobile/mobile6.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/mobile/mobile7.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/mobile/mobile8.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/mobile/mobile9.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/mobile/mobile10.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/mobile/mobile11.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/mobile/mobile12.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/mobile/mobile13.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/mobile/mobile14.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/mobile/mobile15.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/mobile/mobile16.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/mobile/mobile17.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/mobile/mobile18.png" alt=""></div>
-            <div class="swiper-slide"><img src="img/mobile/mobile19.png" alt=""></div>
+            <div class="swiper-slide"><img src="img/mobile/mobile.png"  alt=""></div>
+            <div class="swiper-slide"><img src="img/mobile/mobile2.png"  alt=""></div>
+            <div class="swiper-slide" lazy="true"><img src="img/mobile/mobile3.png" loading="lazy" alt=""></div>
+            <div class="swiper-slide" lazy="true"><img src="img/mobile/mobile4.png" loading="lazy" alt=""></div>
+            <div class="swiper-slide" lazy="true"><img src="img/mobile/mobile5.png" loading="lazy" alt=""></div>
+            <div class="swiper-slide" lazy="true"><img src="img/mobile/mobile6.png" loading="lazy" alt=""></div>
+            <div class="swiper-slide" lazy="true"><img src="img/mobile/mobile7.png" loading="lazy" alt=""></div>
+            <div class="swiper-slide" lazy="true"><img src="img/mobile/mobile8.png" loading="lazy" alt=""></div>
+            <div class="swiper-slide" lazy="true"><img src="img/mobile/mobile9.png" loading="lazy" alt=""></div>
+            <div class="swiper-slide" lazy="true"><img src="img/mobile/mobile10.png" loading="lazy" alt=""></div>
+            <div class="swiper-slide" lazy="true"><img src="img/mobile/mobile11.png" loading="lazy" alt=""></div>
+            <div class="swiper-slide" lazy="true"><img src="img/mobile/mobile12.png" loading="lazy" alt=""></div>
+            <div class="swiper-slide" lazy="true"><img src="img/mobile/mobile13.png" loading="lazy" alt=""></div>
+            <div class="swiper-slide" lazy="true"><img src="img/mobile/mobile14.png" loading="lazy" alt=""></div>
+            <div class="swiper-slide" lazy="true"><img src="img/mobile/mobile15.png" loading="lazy" alt=""></div>
+            <div class="swiper-slide" lazy="true"><img src="img/mobile/mobile16.png" loading="lazy" alt=""></div>
+            <div class="swiper-slide" lazy="true"><img src="img/mobile/mobile17.png" loading="lazy" alt=""></div>
+            <div class="swiper-slide" lazy="true"><img src="img/mobile/mobile18.png" loading="lazy" alt=""></div>
+            <div class="swiper-slide" lazy="true"><img src="img/mobile/mobile19.png" loading="lazy" alt=""></div>
             <div class="swiper-slide">
                 <div class="flex-slide">
                     <div id="donate-slide">
@@ -424,7 +424,9 @@
     </footer>
 
 
+    <!-- <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script> -->
     <script src="lib/swiper-bundle.min.js"></script>
+
     <script src="https://unpkg.com/popper.js@1"></script>
     <script src="https://unpkg.com/tippy.js@4"></script>
     <script src="lib/share-behavior.js"></script>   
@@ -436,6 +438,7 @@
     var swiperDesktop = new Swiper('.swiper1', {
         slidesPerView: 1,
         spaceBetween: 50,
+        allowSlideNext: true,
         slideToClickedSlide: true,
         centeredSlides: true,
         pagination: false,
@@ -447,53 +450,36 @@
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
-        },
-        breakpoints: {
-            600: {
-                freemode: true,
-                slidesPerView: 1,
-                spaceBetween: 20,
-            }
         }
 
     });
 
     var swiperMobile = new Swiper('.swiper2', {
+        speed: 400,
         slidesPerView: 1,
-        spaceBetween: 50,
-        slideToClickedSlide: true,
+        spaceBetween: 100,
         centeredSlides: true,
         pagination: false,
         loop: false,
         keyboard: {
             enabled: true,
-            onlyInViewport: true,
         },
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
-        breakpoints: {
-            600: {
-                freemode: true,
-                slidesPerView: 1,
-                spaceBetween: 20,
-            }
-        }
-
+        lazyPreloadPrevNext: 2
     });
 
 
 
-    var tippy_instance = window.innerWidth > 600 ? tippy(document.querySelector('#next-desktop')) : tippy(document.querySelector('#next-mobile'));
+    var tippy_instance = tippy(document.querySelector('#next-desktop'));
     tippy_instance.show();
     
-    var nextButtons = document.querySelectorAll(".swiper-button-next");
-    for (var i = 0; i < nextButtons.length; i++) {
-        nextButtons[i].addEventListener('click', function(event) {
+    document.querySelector("#next-desktop").addEventListener('click', function(event) {
             tippy_instance.destroy();
     });
-}
+   
   
 
 </script>
