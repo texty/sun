@@ -28,7 +28,7 @@ header ul {
 }
 
 header .texty-logo img {
-    min-width: 100px;
+    min-width: 130px;
     max-width: 90%;
     max-height: 20px;
     object-fit: contain;
